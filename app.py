@@ -8,7 +8,7 @@ db = SQLAlchemy(app)
 
 class Client(db.Model):
     """
-
+    Класс таблицы содержащей данные о клиентах банка
     """
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(length=225), nullable=False)
@@ -20,6 +20,9 @@ class Client(db.Model):
 
 
 class Account(db.Model):
+    """
+    Класс таблицы содержащей данные о счетах клиентов
+    """
     id = db.Column(db.Integer(), primary_key=True)
     balance = db.Column(db.Float(), nullable=False)
     client_id = db.ForeignKey(Client.id)
@@ -27,6 +30,9 @@ class Account(db.Model):
 
 
 class Credit(db.Model):
+    """
+    Класс таблицы содержащей данные об оформленных кредитах
+    """
     id = db.Column(db.Integer(), primary_key=True)
     percentage = db.Column(db.Float(), nullable=False)
     credit_amount = db.Column(db.Float, nullable=False)
@@ -34,6 +40,9 @@ class Credit(db.Model):
 
 
 class Transfer(db.Model):
+    """
+    Класс таблицы содержащей данные о переводах
+    """
     id = db.Column(db.Integer(), primary_key=True)
     receiver_account_id = db.ForeignKey(Account.id)
     sender_account_id = db.ForeignKey(Account.id)
@@ -41,10 +50,15 @@ class Transfer(db.Model):
 
 
 class Employee(db.Model):
+    """
+    Класс таблицы содержащей данные о сотрудниках банка
+    """
+
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(225), nullable=False)
 
 
+# Добавить эти таблицы (У них не работает Foreign KEy посмотри как это пофиксить в репозитории heelo flask
 # class Credit(db.Model):
 #     id = db.Column(db.Integer(), primary_key=True)
 #     employee_id = db.ForeignKey(Employee.id)
