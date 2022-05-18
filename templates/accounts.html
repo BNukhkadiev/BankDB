@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Accounts page
+{% endblock %}
+
+{% block body %}
+<table class="table table-hover table-dark">
+    <thead>
+    <tr>
+        <!-- Your Columns HERE -->
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Balance</th>
+        <th scope="col">Options</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Your rows inside the table HERE: -->
+    {% for account in accounts %}
+    <tr>
+        <td>{{ account.id }}</td>
+        <td>{{ account.name }}</td>
+        <td>{{ account.balance }}</td>
+        <td>
+            <button class="btn btn-outline btn-info">More Info</button>
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}
