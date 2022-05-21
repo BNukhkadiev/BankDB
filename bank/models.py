@@ -1,6 +1,14 @@
 from bank import db
 
 
+class User(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    username = db.Column(db.String(length=225), unique=True, nullable=False)
+    email_address = db.Column(db.String(length=225), unique=True, nullable=False)
+    password_hash = db.Column(db.String(length=60), nullable=False)
+    client = db.relationship('Client', backref='owned_user', lazy=True)
+
+
 class Client(db.Model):
     """
     Класс таблицы содержащей данные о клиентах банка
@@ -12,6 +20,7 @@ class Client(db.Model):
     snils = db.Column(db.String(length=11))
     birth_date = db.Column(db.Date())
     address = db.Column(db.String(length=200))
+    user = db.Column(db.Integer(), db.ForeignKey('user.id'))
 
 
 class Account(db.Model):
