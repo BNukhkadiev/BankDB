@@ -1,14 +1,6 @@
 from bank import db
 
 
-class User(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    username = db.Column(db.String(length=225), unique=True, nullable=False)
-    email_address = db.Column(db.String(length=225), unique=True, nullable=False)
-    password_hash = db.Column(db.String(length=60), nullable=False)
-    client = db.relationship('Client', backref='owned_user', lazy=True)
-
-
 class Client(db.Model):
     """
     Класс таблицы содержащей данные о клиентах банка
@@ -17,10 +9,9 @@ class Client(db.Model):
     name = db.Column(db.String(length=225), nullable=False)
     gender = db.Column(db.Boolean(), nullable=False)
     passport_number = db.Column(db.String(length=10), nullable=False, unique=True)
-    snils = db.Column(db.String(length=11))
     birth_date = db.Column(db.Date())
     address = db.Column(db.String(length=200))
-    user = db.Column(db.Integer(), db.ForeignKey('user.id'))
+    account = db.relationship('Account', backref='owned_client', lazy=True)
 
 
 class Account(db.Model):
@@ -29,6 +20,8 @@ class Account(db.Model):
     """
     id = db.Column(db.Integer(), primary_key=True)
     balance = db.Column(db.Float(), nullable=False)
+    password = db.Column(db.String(length=60), nullable=False)
+    email = db.Column(db.String(length=225), nullable=False)
     client_id = db.Column(db.Integer, db.ForeignKey(Client.id))
     currency = db.String(db.String(length=15))
 
@@ -47,9 +40,10 @@ class Employee(db.Model):
     """
     Класс таблицы содержащей данные о сотрудниках банка
     """
-
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(225), nullable=False)
+    position = db.Column(db.String(60), nullable=False)
+    credits = db.relationship('Credit', backref='curated_credit', lazy=True)
 
     def __repr__(self):
         return f"Employee {self.name}"
@@ -65,13 +59,3 @@ class Credit(db.Model):
     last_payment_date = db.Column(db.Date(), nullable=False)
 
 
-class Service(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    service_name = db.Column(db.String(225), nullable=False)
-
-
-class Payment(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    payment_amount = db.Column(db.Float(), nullable=False)
-    employee_id = db.Column(db.Integer, db.ForeignKey(Employee.id))
-    account_id = db.Column(db.Integer, db.ForeignKey(Account.id))
