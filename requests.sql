@@ -78,3 +78,5 @@ INSERT INTO account VALUES (4, 420, 4);
 INSERT INTO account VALUES (5, 8097, 5);
 
 
+UPDATE account SET email = "mymail" || id || "@domen.com";
+

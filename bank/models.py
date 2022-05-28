@@ -6,11 +6,11 @@ class Client(db.Model):
     Класс таблицы содержащей данные о клиентах банка
     """
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(length=225), nullable=False)
+    name = db.Column(db.String(length=225))
     gender = db.Column(db.Boolean(), nullable=False)
-    passport_number = db.Column(db.String(length=10), nullable=False, unique=True)
+    passport_number = db.Column(db.String(length=10))
     birth_date = db.Column(db.Date())
-    address = db.Column(db.String(length=200))
+    address = db.Column(db.String(length=225))
     account = db.relationship('Account', backref='owned_client', lazy=True)
 
 
@@ -43,7 +43,7 @@ class Employee(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(225), nullable=False)
     position = db.Column(db.String(60), nullable=False)
-    credits = db.relationship('Credit', backref='curated_credit', lazy=True)
+    # credits = db.relationship('Credit', backref='curated_credit', lazy=True)
 
     def __repr__(self):
         return f"Employee {self.name}"
