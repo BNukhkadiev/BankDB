@@ -19,9 +19,9 @@ class Account(db.Model):
     Класс таблицы содержащей данные о счетах клиентов
     """
     id = db.Column(db.Integer(), primary_key=True)
-    balance = db.Column(db.Float(), nullable=False)
-    password = db.Column(db.String(length=60), nullable=False)
-    email = db.Column(db.String(length=225), nullable=False)
+    balance = db.Column(db.Float())
+    password = db.Column(db.String(length=60))
+    email = db.Column(db.String(length=225))
     client_id = db.Column(db.Integer, db.ForeignKey(Client.id))
     currency = db.String(db.String(length=15))
 
@@ -43,6 +43,7 @@ class Employee(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(225), nullable=False)
     position = db.Column(db.String(60), nullable=False)
+
     # credits = db.relationship('Credit', backref='curated_credit', lazy=True)
 
     def __repr__(self):
@@ -57,5 +58,3 @@ class Credit(db.Model):
     percentage = db.Column(db.Float(), nullable=False)
     credit_amount = db.Column(db.Float(), nullable=False)
     last_payment_date = db.Column(db.Date(), nullable=False)
-
-
