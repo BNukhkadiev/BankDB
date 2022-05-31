@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 from prettytable import PrettyTable
 
-engine = create_engine("sqlite:///tryout.db")
+engine = create_engine("sqlite:///../bank/bank.db")
 Base = declarative_base()
 Session = sessionmaker(engine)
 inspector = inspect(engine)
@@ -72,64 +72,63 @@ class Client(Base):
     address = Column(String)
 
 
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)
 
 
-def add_values(id, balance, client_id, email, password):
+def add_values(id, name, email, password):
     with Session.begin() as session:
-        account_record = BankAccount(
+        user_record = User(
             id=id,
-            balance=balance,
-            client_id=client_id,
+            name=name,
             email=email,
             password=password
         )
-        session.add(account_record)
+        session.add(user_record)
 
 
 def get_values():
     with Session.begin() as session:
-        select_statement = select(BankAccount).where(BankAccount.email.in_(["patrick@mail", "spongy@mail"]))
+        select_statement = select(User)
         result = session.execute(select_statement)
 
         x = PrettyTable()
-        x.field_names = ["id", "balance", "client_id", "email", "password"]
+        x.field_names = ["id", "balance", "email", "password"]
         for row in result.scalars():
-            x.add_row([row.id, row.balance, row.client_id, row.email, row.password])
+            x.add_row([row.id, row.name, row.email, row.password])
         print(x)
 
 
-def delete_values(key, value):
+def delete_values(value):
     with Session.begin() as session:
-        delete_statement = delete(BankAccount).where(BankAccount.email == value)
+        delete_statement = delete(User).where(User.email == value)
         result = session.execute(delete_statement)
 
 
 def search_values(*values):
     with Session.begin() as session:
-        select_statement = select(BankAccount).where(BankAccount.email.in_(values))
+        select_statement = select(User).where(User.email.in_(values))
         result = session.execute(select_statement)
         x = PrettyTable()
-        x.field_names = ["id", "balance", "client_id", "email", "password"]
+        x.field_names = ["id", "name", "email", "password"]
         for row in result.scalars():
-            x.add_row([row.id, row.balance, row.client_id, row.email, row.password])
+            x.add_row([row.id, row.name, row.email, row.password])
         print(x)
 
 
 def print_table_names():
     print("Available tables:", "; ".join(inspector.get_table_names()))
 
-# add_values(1, 0, 1, "spongy@mail", "123")
-# add_values(2, 0, 2, "sandy@mail", "321")
-# add_values(3, 0, 2, "patrick@mail", "321")
-# add_values(4, 0, 2, "krabs@mail", "321")
-# add_values(5, 0, 2, "squidward@mail", "321")
 
+# add_values(1, "Spongebob", "spongy@mail", "123")
+# add_values(2, "Sandy", "sandy@mail", "432")
+# add_values(3, "Patrick", "patrick@mail", "2365")
+# add_values(4, "Squidward", "squidward@mail", "324")
+#
+get_values()
+
+# delete_values("spongy@mail")
+#
 # get_values()
-#
-# delete_values("email", "spongy@mail")
-#
-# get_values()
-#
-# search_values("patrick@mail", "krabs@mail")
+
+search_values("patrick@mail", "krabs@mail")
 # get_values()
