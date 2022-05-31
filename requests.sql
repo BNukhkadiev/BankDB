@@ -8,6 +8,11 @@ CREATE TABLE transfer(
     FOREIGN KEY(account_id) REFERENCES account(id),
     FOREIGN KEY(receiver_account_id) REFERENCES account(id));
 
+CREATE TABLE journal_account (
+operation_datetime DATETIME,
+operation_type VARCHAR(20),
+table_name VARCHAR(20),
+operation_id INT);
 
 
 CREATE TABLE account (

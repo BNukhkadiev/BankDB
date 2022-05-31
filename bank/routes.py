@@ -1,6 +1,6 @@
 from bank import app, db
 from flask import render_template, request, redirect, url_for
-from bank.models import Employee, Account, Transfer, Client
+from bank.models import Employee, BankAccount, Transfer, Client
 from bank.forms import RegisterForm
 
 
@@ -13,7 +13,7 @@ def home_page():
 
 @app.route("/accounts")
 def accounts_page():
-    accounts = Account.query.all()
+    accounts = BankAccount.query.all()
 
     return render_template('accounts.html', accounts=accounts)
 

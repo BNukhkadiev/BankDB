@@ -11,9 +11,18 @@ Session = sessionmaker(engine)
 inspector = inspect(engine)
 
 
+class Journal(Base):
+    __tablename__ = "journal_account"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    operation_datetime = Column(Date)
+    table_name = Column(String)
+    operation_id = Column(ForeignKey("bank_account.id"))
+
+
 class User(Base):
     __tablename__ = "user"
     id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String)
     email = Column(String)
     password = Column(String)
 
@@ -31,37 +40,35 @@ class BankAccount(Base):
 class Credit(Base):
     __tablename__ = "credit"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    employee_id = Column(ForeignKey("employee.id"))
-    client_id = Column(ForeignKey("client.id"))
     percentage = Column(Float)
     credit_amount = Column(Float)
     last_payment_date = Column(Date)
+    employee_id = Column(ForeignKey("employee.id"))
+    client_id = Column(ForeignKey("client.id"))
 
 
 class Employee(Base):
     __tablename__ = "employee"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(ForeignKey("user.id"))
-    name = Column(String)
     position = Column(String)
+    user_id = Column(ForeignKey("user.id"))
 
 
 class Transfer(Base):
     __tablename__ = "transfer"
     id = Column(Integer, primary_key=True)
-    account_id = Column(ForeignKey("account.id"))
-    reciever_account_id = Column(ForeignKey("account.id"))
-    transfer_amount = Column(Float)
+    amount = Column(Float)
+    sender_id = Column(ForeignKey("account.id"))
+    receiver_id = Column(ForeignKey("account.id"))
 
 
 class Client(Base):
     __tablename__ = "client"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(ForeignKey("user.id"))
-    name = Column(String)
     gender = Column(Boolean)
+    user_id = Column(ForeignKey("user.id"))
+    passport_id = Column(String)
     birth_date = Column(Date)
-    passport_number = Column(String)
     address = Column(String)
 
 
@@ -111,7 +118,6 @@ def search_values(*values):
 
 def print_table_names():
     print("Available tables:", "; ".join(inspector.get_table_names()))
-
 
 # add_values(1, 0, 1, "spongy@mail", "123")
 # add_values(2, 0, 2, "sandy@mail", "321")
