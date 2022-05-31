@@ -1,52 +1,20 @@
 from sqlalchemy.engine import result
 import sqlalchemy
 from sqlalchemy import create_engine, MetaData, Column, Integer, Float, ForeignKey, String, Date, Table
-from sqlalchemy import select, text, inspect
+from sqlalchemy import select, text, inspect, Boolean
+from sqlalchemy.orm import declarative_base, sessionmaker
 from prettytable import PrettyTable, from_db_cursor
 
 # establish connections
 engine = create_engine("sqlite:///../bank/bank.db")
 inspector = inspect(engine)
+Session = sessionmaker(engine)
+Base = declarative_base()
 
 
 # initialize the Metadata Object
-# meta = MetaData(bind=engine)
-
-
-# MetaData.reflect(meta)
-
 
 # create a table schema
-class Account:
-    __table__ = "account"
-    id = Column(Integer, primary_key=True)
-    balance = Column(Float, nullable=False)
-    client_id = Column(Integer, ForeignKey("client.id"))
-    email = Column(String)
-    password = Column(String)
-
-
-class Credit:
-    __table__ = "credit"
-    id = Column(Integer, primary_key=True)
-    employee_id = Column(Integer, ForeignKey("employee.id"))
-    client_id = Column(Integer, ForeignKey("client.id"))
-    percentage = Column(Float)
-    credit_amount = Column(Float)
-    last_payment_date = Column(Date)
-
-
-class Employee:
-    __table__ = "employee"
-
-
-class Transfer:
-    __table__ = "transfer"
-
-
-class Client:
-    __table__ = "client"
-
 
 def add_values(table_name, *values):
     values = tuple(values)
@@ -96,8 +64,9 @@ while True:
     if len(option) == 0:
         break
 
+    if option == "5":
+        print_table_names()
     table_name = input("Table name: ")
-
     if option == "1":
         values = input("Values: ").split()
         add_values(table_name, *values)
@@ -109,5 +78,5 @@ while True:
     if option == "4":
         condition = input("Condition: ")
         search_values(table_name, condition)
-    if option == "5":
-        print_table_names()
+
+Base.metadata.create_all(engine)
