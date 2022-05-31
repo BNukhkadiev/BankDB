@@ -1,6 +1,6 @@
 from bank import app, db
 from flask import render_template, request, redirect, url_for
-from bank.models import Employee, Account
+from bank.models import Employee, Account, Transfer, Client
 from bank.forms import RegisterForm
 
 
@@ -13,12 +13,8 @@ def home_page():
 
 @app.route("/accounts")
 def accounts_page():
-    accounts = [
-        {'id': 1, 'name': 'Pavel', 'balance': 100},
-        {'id': 2, 'name': 'Ivan', 'balance': 200},
-        {'id': 3, 'name': 'Brian', 'balance': 5523},
-        {'id': 4, 'name': 'Kornelius', 'balance': 3123}
-    ]
+    accounts = Account.query.all()
+
     return render_template('accounts.html', accounts=accounts)
 
 
@@ -38,3 +34,15 @@ def register_page():
         # db.session.commit()
         return redirect(url_for("accounts_page"))
     return render_template("register.html", form=form)
+
+
+@app.route('/transfer')
+def transfer_page():
+    transfers = Transfer.query.all()
+    return render_template("transfer.html", transfers=transfers)
+
+
+@app.route('/clients')
+def clients_page():
+    clients = Client.query.all()
+    return render_template("clients.html", clients=clients)

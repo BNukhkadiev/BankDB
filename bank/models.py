@@ -5,7 +5,7 @@ class Client(db.Model):
     """
     Класс таблицы содержащей данные о клиентах банка
     """
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     name = db.Column(db.String(length=225))
     gender = db.Column(db.Boolean(), nullable=False)
     passport_number = db.Column(db.String(length=10))
@@ -18,7 +18,7 @@ class Account(db.Model):
     """
     Класс таблицы содержащей данные о счетах клиентов
     """
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     balance = db.Column(db.Float())
     password = db.Column(db.String(length=60))
     email = db.Column(db.String(length=225))

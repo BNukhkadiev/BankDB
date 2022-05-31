@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 
+
 {% block title %}
-Employees page
+Transfer page
 {% endblock %}
 
 {% block body %}
@@ -10,17 +11,19 @@ Employees page
     <tr>
         <!-- Your Columns HERE -->
         <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Position</th>
+        <th scope="col">Sender</th>
+        <th scope="col">Receiver</th>
+        <th scope="col">Amount</th>
     </tr>
     </thead>
     <tbody>
     <!-- Your rows inside the table HERE: -->
-    {% for employee in employees %}
+    {% for transfer in transfers %}
     <tr>
-        <td>{{ employee.id }}</td>
-        <td>{{ employee.name }}</td>
-        <td>{{ employee.position }}</td>
+        <td>{{ transfer.transfer_id }}</td>
+        <td>{{ transfer.account_id }}</td>
+        <td>{{ transfer.reciever_account_id }}</td>
+        <td>{{ transfer.transfer_amount }}</td>
         <td>
             <button class="btn btn-outline btn-info">More Info</button>
         </td>
