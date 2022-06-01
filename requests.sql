@@ -85,3 +85,21 @@ INSERT INTO account VALUES (5, 8097, 5);
 
 UPDATE account SET email = "mymail" || id || "@domen.com";
 
+
+
+INSERT INTO user VALUES (1, "Sponge Bob", "spongebob@mail", "123");
+INSERT INTO user VALUES (2, "Patrick Star", "patrick@mail", "123");
+INSERT INTO user VALUES (3, "Sandy Cheeks", "sandy@mail", "123");
+INSERT INTO user VALUES (4, "Squidward Tentacles", "squidward@mail", "123");
+INSERT INTO user VALUES (5, "Mr. Krabs", "krabs@mail", "123");
+
+INSERT INTO bank_account VALUES(1, 500, 1);
+INSERT INTO bank_account VALUES(2, 1000, 2);
+INSERT INTO bank_account VALUES(3, 231, 3);
+INSERT INTO bank_account VALUES(4, 321, 4);
+INSERT INTO bank_account VALUES(5, 500, 5);
+
+
+INSERT INTO employee VALUES (1, "Cook", 1);
+INSERT INTO employee VALUES (2, "Manager", 4);
+INSERT INTO employee VALUES (3, "Chief", 5);

@@ -2,34 +2,35 @@
 
 
 {% block title %}
-Transfer page
+    Transfer page
 {% endblock %}
 
 {% block body %}
-<table class="table table-hover table-dark">
-    <thead>
-    <tr>
-        <!-- Your Columns HERE -->
-        <th scope="col">ID</th>
-        <th scope="col">Sender</th>
-        <th scope="col">Receiver</th>
-        <th scope="col">Amount</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Your rows inside the table HERE: -->
-    {% for transfer in transfers %}
-    <tr>
-        <td>{{ transfer.transfer_id }}</td>
-        <td>{{ transfer.account_id }}</td>
-        <td>{{ transfer.reciever_account_id }}</td>
-        <td>{{ transfer.transfer_amount }}</td>
-        <td>
-            <button class="btn btn-outline btn-info">More Info</button>
-        </td>
-    </tr>
-    {% endfor %}
+    <h1>Money transfers here</h1>
+    <table class="table table-hover table-dark">
+        <thead>
+        <tr>
+            <!-- Your Columns HERE -->
+            <th scope="col">ID</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Receiver</th>
+            <th scope="col">Sender</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Your rows inside the table HERE: -->
+        {% for transfer in transfers %}
+            <tr>
+                <td>{{ transfer.transfer_id }}</td>
+                <td>{{ transfer.amount }}</td>
+                <td>{{ transfer.receiver_id }}</td>
+                <td>{{ transfer.sender_id }}</td>
+                <td>
+                    <button class="btn btn-outline btn-info">More Info</button>
+                </td>
+            </tr>
+        {% endfor %}
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
 {% endblock %}

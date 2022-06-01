@@ -45,3 +45,4 @@ def transfer_page():
 def clients_page():
     clients = Client.query.all()
     return render_template("clients.html", clients=clients)
+

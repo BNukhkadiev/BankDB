@@ -58,8 +58,8 @@ class Transfer(Base):
     __tablename__ = "transfer"
     id = Column(Integer, primary_key=True)
     amount = Column(Float)
-    sender_id = Column(ForeignKey("account.id"))
-    receiver_id = Column(ForeignKey("account.id"))
+    sender_id = Column(ForeignKey("bank_account.id"))
+    receiver_id = Column(ForeignKey("bank_account.id"))
 
 
 class Client(Base):
@@ -72,7 +72,8 @@ class Client(Base):
     address = Column(String)
 
 
-# Base.metadata.create_all(engine)
+# Base.metadata.drop_all(engine)
+Base.metadata.create_all(engine)
 
 
 def add_values(id, name, email, password):
@@ -124,7 +125,7 @@ def print_table_names():
 # add_values(3, "Patrick", "patrick@mail", "2365")
 # add_values(4, "Squidward", "squidward@mail", "324")
 #
-get_values()
+# get_values()
 
 # delete_values("spongy@mail")
 #
@@ -134,7 +135,7 @@ get_values()
 # get_values()
 
 
-while True:
+while False:
     option = input("Choose an option:\n"
                    "1. Add new values\n"
                    "2. Delete values\n"
