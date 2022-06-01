@@ -104,7 +104,7 @@ def delete_values(value):
         result = session.execute(delete_statement)
 
 
-def search_values(*values):
+def search_values(values):
     with Session.begin() as session:
         select_statement = select(User).where(User.email.in_(values))
         result = session.execute(select_statement)
@@ -130,5 +130,38 @@ get_values()
 #
 # get_values()
 
-search_values("patrick@mail", "krabs@mail")
+# search_values("patrick@mail", "krabs@mail")
 # get_values()
+
+
+while True:
+    option = input("Choose an option:\n"
+                   "1. Add new values\n"
+                   "2. Delete values\n"
+                   "3. Print table\n"
+                   "4. Search by condition\n"
+                   "5. Print table names\n")
+    if len(option) == 0:
+        break
+
+    if option == "5":
+        print_table_names()
+    # table_name = input("Table name: ")
+    if option == "1":
+        # values = input("Values: ").split()
+        id = int(input("id: "))
+        name = input("name:")
+        email = input("email:")
+        password = input("password:")
+        add_values(id, name, email, password)
+    if option == "2":
+        condition = input("Condition: ")
+        delete_values(condition)
+    if option == "3":
+        get_values()
+    if option == "4":
+        condition = input("Condition: ").split()
+        print(condition)
+        print(type(condition))
+        search_values(condition)
+

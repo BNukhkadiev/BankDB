@@ -1,6 +1,6 @@
 from bank import app, db
 from flask import render_template, request, redirect, url_for
-from bank.models import Employee, BankAccount, Transfer, Client
+from bank.models import Employee, BankAccount, Transfer, Client, Credit, User
 from bank.forms import RegisterForm
 
 
@@ -14,7 +14,6 @@ def home_page():
 @app.route("/accounts")
 def accounts_page():
     accounts = BankAccount.query.all()
-
     return render_template('accounts.html', accounts=accounts)
 
 
@@ -28,10 +27,10 @@ def employees_page():
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
-        # account_to_create = Account(email=form.email_address.data,
-        #                             password=form.password1.data)
-        # db.session.add(account_to_create)
-        # db.session.commit()
+        account_to_create = User(email=form.email_address.data,
+                                    password=form.password1.data)
+        db.session.add(account_to_create)
+        db.session.commit()
         return redirect(url_for("accounts_page"))
     return render_template("register.html", form=form)
 
