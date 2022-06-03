@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    New Transfer
+{% endblock %}
+
+
+{% block body %}
+    <body class="text-center">
+    <div class="container">
+        <form method="POST" class="form-signin" style="color:white">
+            {{ form.hidden_tag() }}
+            <h1 class="h3 mb-3 font-weight-normal">
+                Fill in for transfer
+            </h1>
+            <br>
+            {{ form.sender_id.label() }}
+            {{ form.sender_id(class="form-control", placeholder="Receiver") }}
+
+            {{ form.receiver_id.label() }}
+            {{ form.receiver_id(class="form-control", placeholder="Sender") }}
+
+            {{ form.amount.label() }}
+            {{ form.amount(class="form-control", placeholder="Amount") }}
+            <br>
+
+            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+
+        </form>
+    </div>
+    </body>
+{% endblock %}

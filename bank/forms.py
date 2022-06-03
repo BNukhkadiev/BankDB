@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, FloatField
 from wtforms.validators import Length, EqualTo, Email, DataRequired
 
 
@@ -15,3 +15,11 @@ class LoginForm(FlaskForm):
     username = StringField(label="User Name", validators=[DataRequired()])
     password = StringField(label="Password", validators=[DataRequired()])
     submit = SubmitField(label="Sign in")
+
+
+class TransferForm(FlaskForm):
+    sender_id = IntegerField(label="Sender ID", validators=[DataRequired()])
+    receiver_id = IntegerField(label="Receiver ID: ", validators=[DataRequired()])
+    amount = FloatField(label="Amount: ", validators=[DataRequired()])
+    submit = SubmitField(label="Transfer Money")
+

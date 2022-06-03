@@ -1,7 +1,7 @@
 from bank import app, db
 from flask import render_template, request, redirect, url_for, flash
 from bank.models import Employee, BankAccount, Transfer, Client, Credit, User
-from bank.forms import RegisterForm, LoginForm
+from bank.forms import RegisterForm, LoginForm, TransferForm
 from flask_login import login_user, logout_user, login_required
 
 
@@ -83,3 +83,18 @@ def logout_page():
     logout_user()
     print("You have been logged out")
     return redirect(url_for("home_page"))
+
+
+@app.route("/new_transfer", methods=["GET", "POST"])
+@login_required
+def new_transfer_page():
+    form = TransferForm()
+    if form.validate_on_submit():
+        transfer_to_create = Transfer(sender_id=form.sender_id.data,
+                                      receiver_id=form.receiver_id.data,
+                                      amount=form.amount.data)
+        db.session.add(transfer_to_create)
+        db.session.commit()
+        return redirect(url_for("transfer_page"))
+
+    return render_template("new_transfer.html", form=form)
