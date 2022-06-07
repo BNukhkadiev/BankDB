@@ -5,7 +5,12 @@ Clients page
 {% endblock %}
 
 {% block body %}
-<h1>Personal info here</h1>
+<br>
+<div class="expand-md">
+    <a class="btn  btn-lg btn-outline btn-warning btn-primary" href="{{ url_for('delete_user_page') }}">Delete User</a>
+</div>
+<br>
+
 <table id="data" class="table table-hover table-dark">
     <thead>
     <tr>

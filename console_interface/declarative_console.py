@@ -135,7 +135,7 @@ def print_table_names():
 # get_values()
 
 
-while False:
+while True:
     option = input("Choose an option:\n"
                    "1. Add new values\n"
                    "2. Delete values\n"
@@ -162,7 +162,7 @@ while False:
         get_values()
     if option == "4":
         condition = input("Condition: ").split()
-        print(condition)
-        print(type(condition))
+        # print(condition)
+        # print(type(condition))
         search_values(condition)
 

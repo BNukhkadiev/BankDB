@@ -6,7 +6,12 @@ Transfer page
 {% endblock %}
 
 {% block body %}
-<h1>Money transfers here</h1>
+<br>
+<div class="expand-md">
+    <a class="btn  btn-lg btn-outline btn-success btn-primary" href="{{ url_for('new_transfer_page') }}">New Transfer</a>
+    <a class="btn  btn-lg btn-outline btn-warning btn-primary" href="{{ url_for('delete_transfer_page') }}">Delete Transfer</a>
+</div>
+<br>
 <table id="data" class="table table-hover table-dark">
     <thead>
     <tr>
@@ -15,20 +20,16 @@ Transfer page
         <th scope="col">Amount</th>
         <th scope="col">Receiver</th>
         <th scope="col">Sender</th>
-        <th scope="col">Options</th>
     </tr>
     </thead>
     <tbody>
     <!-- Your rows inside the table HERE: -->
     {% for transfer in transfers %}
     <tr>
-        <td>{{ transfer.transfer_id }}</td>
+        <td>{{ transfer.id }}</td>
         <td>{{ transfer.amount }}</td>
         <td>{{ transfer.receiver_id }}</td>
         <td>{{ transfer.sender_id }}</td>
-        <td>
-            <button class="btn btn-outline btn-info">Delete</button>
-        </td>
     </tr>
     {% endfor %}
 

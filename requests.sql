@@ -27,6 +27,12 @@ BEGIN
 INSERT INTO journal_account(operation_datetime, operation_type, table_name, operation_id) VALUES (DATETIME("now", "localtime"), "INSERT", "account", new.id);
 END;
 
+CREATE TRIGGER account_delete_log AFTER DELETE
+ON account
+BEGIN
+INSERT INTO journal_account(operation_datetime, operation_type, table_name, operation_id) VALUES (DATETIME("now", "localtime"), "DELETE", "account", new.id);
+END;
+
 CREATE TABLE credit (
         id INTEGER NOT NULL,
         employee_id INTEGER,

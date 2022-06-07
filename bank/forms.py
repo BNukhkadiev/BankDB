@@ -23,3 +23,7 @@ class TransferForm(FlaskForm):
     amount = FloatField(label="Amount: ", validators=[DataRequired()])
     submit = SubmitField(label="Transfer Money")
 
+
+class UserToDelete(FlaskForm):
+    email = StringField(label="Email Address:", validators=[DataRequired()])
+    submit = SubmitField(label="Delete User")

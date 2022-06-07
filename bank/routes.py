@@ -1,9 +1,9 @@
 from bank import app, db
 from flask import render_template, request, redirect, url_for, flash
 from bank.models import Employee, BankAccount, Transfer, Client, Credit, User
-from bank.forms import RegisterForm, LoginForm, TransferForm
+from bank.forms import RegisterForm, LoginForm, TransferForm, UserToDelete
 from flask_login import login_user, logout_user, login_required
-
+from wtforms import Label
 
 @app.route('/')
 @app.route('/home')
@@ -85,6 +85,10 @@ def logout_page():
     return redirect(url_for("home_page"))
 
 
+def delete_transfer():
+    print("deleting transfer")
+
+
 @app.route("/new_transfer", methods=["GET", "POST"])
 @login_required
 def new_transfer_page():
@@ -98,3 +102,34 @@ def new_transfer_page():
         return redirect(url_for("transfer_page"))
 
     return render_template("new_transfer.html", form=form)
+
+
+@app.route("/delete_transfer", methods=["GET", "POST"])
+@login_required
+def delete_transfer_page():
+    form = TransferForm()
+    form.submit.label = Label(form.submit.id, "Delete transfer")
+    if form.validate_on_submit():
+        transfer_to_delete = Transfer.query.filter_by(sender_id=form.sender_id.data,
+                                                      receiver_id=form.receiver_id.data,
+                                                      amount=form.amount.data).first()
+        db.session.delete(transfer_to_delete)
+        db.session.commit()
+        return redirect(url_for("transfer_page"))
+
+    return render_template("delete_transfer.html", form=form)
+
+
+@app.route("/delete_user", methods=["GET", "POST"])
+@login_required
+def delete_user_page():
+    form = UserToDelete()
+    if form.validate_on_submit():
+        user_to_delete = User.query.filter_by(email=form.email.data).first()
+        print(user_to_delete)
+        if user_to_delete:
+            db.session.delete(user_to_delete)
+            db.session.commit()
+        return redirect(url_for("users_page"))
+
+    return render_template("delete_user.html", form=form)
