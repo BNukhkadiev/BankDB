@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    New Transfer
+{% endblock %}
+
+
+{% block body %}
+    <body class="text-center">
+    <div class="container">
+        <form method="POST" class="form-signin" style="color:white">
+            {{ form.hidden_tag() }}
+            <h1 class="h3 mb-3 font-weight-normal">
+                Fill in to create new client
+            </h1>
+            <br>
+            {{ form.gender.label() }}
+            {{ form.gender(class="form-control", placeholder="Gender") }}
+
+            {{ form.user_id.label() }}
+            {{ form.user_id(class="form-control", placeholder="User ID") }}
+
+            {{ form.birthday.label() }}
+            {{ form.birthday(class="form-control", placeholder="Birthday") }}
+
+            {{ form.address.label() }}
+            {{ form.address(class="form-control", placeholder="Address") }}
+
+            <br>
+
+            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+
+        </form>
+    </div>
+    </body>
+{% endblock %}

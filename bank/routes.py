@@ -1,9 +1,10 @@
 from bank import app, db
 from flask import render_template, request, redirect, url_for, flash
 from bank.models import Employee, BankAccount, Transfer, Client, Credit, User
-from bank.forms import RegisterForm, LoginForm, TransferForm, UserToDelete
+from bank.forms import RegisterForm, LoginForm, TransferForm, UserToDelete, NewClient
 from flask_login import login_user, logout_user, login_required
 from wtforms import Label
+
 
 @app.route('/')
 @app.route('/home')
@@ -133,3 +134,19 @@ def delete_user_page():
         return redirect(url_for("users_page"))
 
     return render_template("delete_user.html", form=form)
+
+
+@app.route("/new_client", methods=["GET", "POST"])
+@login_required
+def new_user_page():
+    form = NewClient()
+    if form.validate_on_submit():
+        client_to_create = Client(user_id=form.user_id.data,
+                                  gender=form.gender.data,
+                                  birth_date=form.birthday.data,
+                                  address=form.address.data)
+        db.session.add(client_to_create)
+        db.session.commit()
+        return redirect(url_for("clients_page"))
+
+    return render_template("new_client.html", form=form)

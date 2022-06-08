@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, FloatField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, FloatField, BooleanField, DateField
 from wtforms.validators import Length, EqualTo, Email, DataRequired
 
 
@@ -27,3 +27,11 @@ class TransferForm(FlaskForm):
 class UserToDelete(FlaskForm):
     email = StringField(label="Email Address:", validators=[DataRequired()])
     submit = SubmitField(label="Delete User")
+
+
+class NewClient(FlaskForm):
+    gender = BooleanField(label="Gender:", validators=[DataRequired()])
+    user_id = IntegerField(label="User ID:", validators=[DataRequired()])
+    birthday = DateField(label="Birthday:", validators=[DataRequired()])
+    address = StringField(label="Address:", validators=[DataRequired()])
+    submit = SubmitField(label="Create Client")

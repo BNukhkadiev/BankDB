@@ -1,42 +1,46 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Clients page
+    Clients page
 {% endblock %}
 
 {% block body %}
-<h1>Personal info here</h1>
-<table id="data" class="table table-hover table-dark">
-    <thead>
-    <tr>
-        <!-- Your Columns HERE -->
-        <th scope="col">ID</th>
-        <th scope="col">Gender</th>
-        <th scope="col">User ID</th>
-        <th scope="col">Birthday</th>
-        <th scope="col">Address</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Your rows inside the table HERE: -->
-    {% for client in clients %}
-    <tr>
-        <td>{{ client.id }}</td>
-        <td>{{ client.gender }}</td>
-        <td>{{ client.user_id }}</td>
-        <td>{{ client.birth_date }}</td>
-        <td>{{ client.address }}</td>
-    </tr>
-    {% endfor %}
+    <br>
+    <div class="expand-md">
+        <a class="btn  btn-lg btn-outline btn-success btn-primary" href="{{ url_for('new_user_page') }}">New Client</a>
+    </div>
+    <br>
+    <table id="data" class="table table-hover table-dark">
+        <thead>
+        <tr>
+            <!-- Your Columns HERE -->
+            <th scope="col">ID</th>
+            <th scope="col">Male</th>
+            <th scope="col">User ID</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Your rows inside the table HERE: -->
+        {% for client in clients %}
+            <tr>
+                <td>{{ client.id }}</td>
+                <td>{{ client.gender }}</td>
+                <td>{{ client.user_id }}</td>
+                <td>{{ client.birth_date }}</td>
+                <td>{{ client.address }}</td>
+            </tr>
+        {% endfor %}
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
 {% endblock %}
 
 {% block scripts %}
-<script>
-    $(document).ready(function () {
-        $('#data').DataTable();
-    });
-</script>
+    <script>
+        $(document).ready(function () {
+            $('#data').DataTable();
+        });
+    </script>
 {% endblock %}
